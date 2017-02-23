@@ -38,6 +38,8 @@ class PasswordEditor(QDialog, Ui_PasswordEditorDesign):
 
         self.supportedAlgorithms = get_available_hash_methods()
         map(self.methodBox.addItem, self.supportedAlgorithms)
+        if 'ssha' in self.supportedAlgorithms:
+            self.methodBox.setCurrentIndex(self.supportedAlgorithms.index('ssha'))
         self.methodBox.currentIndexChanged[str].connect(self.methodChanged)
 
         self.okButton.setEnabled(False)
