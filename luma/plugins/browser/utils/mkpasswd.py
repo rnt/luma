@@ -222,7 +222,7 @@ def check_strength_function():
 
 def get_available_hash_methods():
     # basic algorithms which are supported by mkpasswd-module
-    supportedAlgorithms = ['md5','smd5', 'sha1', 'ssha1', 'cleartext']
+    supportedAlgorithms = ['md5','smd5', 'sha', 'ssha', 'cleartext']
 
     # add lmhash and nthash algorithms if smbpasswd module is present
     try:
