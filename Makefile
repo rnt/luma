@@ -29,7 +29,8 @@ install:
 	# install
 
 buildrpm:
-	# build a .rpm package
+	python setup.py bdist_rpm --release 8.fc27
+
 builddeb:
 	# build a .deb package
 
