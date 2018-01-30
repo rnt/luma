@@ -212,31 +212,31 @@ if __name__ == '__main__':
     ## needed. It was created in an attempt to solve the issue with
     ## including none python files in site-packages. This is currently
     ## done for the html files shipped with the browser plugin.
-    
-    if success and 'install' in sys.argv:
-        """If ``setup`` was successfully executed with the install
-        argument we need to do some additional post processing work.
-    
-        This includes copying ``luma/plugins/browser/templates`` into
-        path returned by ``luma.base.util.Paths.getConfigPrefix``.
-        """
-        from luma.base.util.Paths import getConfigPrefix
-    
-        src = os.path.join('luma', 'plugins','browser_plugin', 'templates')
-        configPrefix = getConfigPrefix()
-    
-        if not configPrefix[0]:
-            error('Unable to create user config folder:')
-            msg = 'Additional none-python files will be copied to: {0}'
-            error(msg.format(configPrefix[1]))
-    
-        dst = os.path.join(configPrefix[1], 'browser-templates')
-        try:
-            shutil.copytree(src, dst)
-        except OSError:
-            sys.stderr.write('Unable to copy files.')
-            msg = 'Destination allready exists: {0}'
-            sys.stderr.write(msg.format(dst))
+    #
+    #if success and 'install' in sys.argv:
+    #    """If ``setup`` was successfully executed with the install
+    #    argument we need to do some additional post processing work.
+    #
+    #    This includes copying ``luma/plugins/browser/templates`` into
+    #    path returned by ``luma.base.util.Paths.getConfigPrefix``.
+    #    """
+    #    from luma.base.util.Paths import getConfigPrefix
+    #
+    #    src = os.path.join('luma', 'plugins','browser_plugin', 'templates')
+    #    configPrefix = getConfigPrefix()
+    #
+    #    if not configPrefix[0]:
+    #        error('Unable to create user config folder:')
+    #        msg = 'Additional none-python files will be copied to: {0}'
+    #        error(msg.format(configPrefix[1]))
+    #
+    #    dst = os.path.join(configPrefix[1], 'browser-templates')
+    #    try:
+    #        shutil.copytree(src, dst)
+    #    except OSError:
+    #        sys.stderr.write('Unable to copy files.')
+    #        msg = 'Destination allready exists: {0}'
+    #        sys.stderr.write(msg.format(dst))
 
 
 # vim: tabstop=4 expandtab shiftwidth=4 softtabstop=4
