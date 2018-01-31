@@ -8,8 +8,7 @@ RPMROOT=$(HOME)/rpmbuild
 RPMSOURCE=$(RPMROOT)/SOURCES
 RPMSRCRPM=$(RPMROOT)/SRPMS
 RPMBINRPM=$(RPMROOT)/RPMS/noarch
-PROJECT=series60-remote
-VERSION=0.4.80
+VERSION=$(shell python -c "import luma; print luma.VERSION")
 
 all:
 	@echo "make build - Build everything needed to install"
@@ -29,7 +28,8 @@ install:
 	# install
 
 buildrpm:
-	python setup.py bdist_rpm --release 8.fc27
+	tar zcf ${RPMSOURCE}/luma-${VERSION}.tar.gz --exclude ".git/*" --exclude ".gitignore" --exclude .git --exclude "*.swp*" --transform="s,\./,luma-${VERSION}/,g" .
+	rpmbuild -ba setup/rpm/luma.spec
 
 builddeb:
 	# build a .deb package

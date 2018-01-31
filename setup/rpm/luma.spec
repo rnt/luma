@@ -1,5 +1,5 @@
 %define version 3.0.7
-%define release 1
+%define release 9
 
 %if ! (0%{?fedora} > 12 || 0%{?rhel} > 5)
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
@@ -14,7 +14,7 @@ Release:	%{release}%{?dist}
 Summary:	LDAP Browser and administration utility
 Group:		Applications/System
 License:	GNU General Public License (GPL) version 2
-Source0:	http://folk.ntnu.no/einaru/luma/dist/%{name}-%{version}.tar.gz
+Source0:	%{name}-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:	noarch
 Vendor:		Luma devel team <luma-devel@luma.sf.net>
@@ -43,15 +43,39 @@ base application.
 python setup.py build
 
 %install
-python setup.py install -O1 --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
+python setup.py install -O1 --root=$RPM_BUILD_ROOT
+
+# Add plugins/browser/templates
+install -d $RPM_BUILD_ROOT%{python_sitelib}/luma/plugins/browser/templates
+cp -R luma/plugins/browser/templates/* \
+   $RPM_BUILD_ROOT%{python_sitelib}/luma/plugins/browser/templates
+
+# Desktop entry for luma-settings
+desktop-file-validate \
+	$RPM_BUILD_ROOT%{_datadir}/applications/luma.desktop  
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f INSTALLED_FILES
-%defattr(-,root,root)
+%files
+%defattr(-,root,root,-)
+%{_bindir}/luma
+
+%{_datadir}/icons/
+%{_datadir}/pixmaps/
+
+%{_datadir}/applications/luma.desktop
+
+%{_mandir}/man1/luma.1.gz
+
+%{python_sitelib}/
+
+%doc AUTHORS ChangeLog COPYING README TODO
 
 %changelog
+* Thu Jan 31 2013 Jochen Schmitt <Jochen herr-schmitt de> - 3.0.7-2
+- Add ../plugins/browser/templates (#906498)
 * Wed May 26 2011 Einar Uvsløkk <einar.uvslokk@linux.com> 3.0.7-1
 - Updated unconsistent license statements in the sourcecode.
 - Added some missing patches from the Luma 2.4 svn trunk

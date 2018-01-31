@@ -1,13 +1,11 @@
 [Desktop Entry]
-Version=3.0.3
 Comment=LDAP browser and administration utility
 Exec=luma %U
 Icon=luma
 Terminal=false
 Type=Application
-Encoding=UTF-8
 StartupNotify=true
-Categories=Application;System;
+Categories=System;
 Name=Luma LDAP Browser
 Name[af]=Luma LDAP Leser
 Name[ar]=Luma LDAP متصفح
